@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Will You Be My Valentine? 💖</title>
+
+  <!-- Safe font import -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+      background: linear-gradient(135deg, #ffd6e8, #ffeef5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 16px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 24px;
+      padding: 28px 22px;
+      width: 100%;
+      max-width: 360px;
+      text-align: center;
+      box-shadow: 0 16px 32px rgba(0,0,0,0.15);
+      animation: float 4s ease-in-out infinite;
+      position: relative;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    h1 {
+      color: #ff4d88;
+      font-size: 1.6rem;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: #555;
+      font-size: 1rem;
+      margin-bottom: 18px;
+    }
+
+    .heart {
+      font-size: 2.5rem;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+      100% { transform: scale(1); }
+    }
+
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 18px;
+      position: relative;
+      height: 120px;
+    }
+
+    button {
+      border: none;
+      padding: 14px 0;
+      border-radius: 999px;
+      font-size: 1.05rem;
+      cursor: pointer;
+      width: 100%;
+      touch-action: manipulation;
+    }
+
+    .yes {
+      background: #ff4d88;
+      color: white;
+      box-shadow: 0 6px 16px rgba(255,77,136,0.4);
+    }
+
+    .no {
+      background: #f2f2f2;
+      color: #888;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+    }
+
+    .footer {
+      margin-top: 16px;
+      font-size: 0.85rem;
+      color: #aaa;
+    }
+
+    /* Celebration */
+    .celebrate {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(135deg, #ffb6d5, #ffeef5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .message h1 {
+      font-size: 2rem;
+      color: #ff2f7a;
+    }
+
+    .message p {
+      font-size: 1.1rem;
+      color: #444;
+    }
+
+    .icons {
+      font-size: 2.4rem;
+      margin: 12px 0;
+    }
+
+    .final-line {
+      font-size: 1.2rem;
+      color: #ff2f7a;
+      font-weight: 600;
+    }
+
+    .confetti-heart {
+      position: fixed;
+      bottom: -24px;
+      font-size: 1.6rem;
+      animation: floatUp linear forwards;
+      pointer-events: none;
+    }
+
+    @keyframes floatUp {
+      to {
+        transform: translateY(-120vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="card">
+    <div class="heart">💘</div>
+
+    <h1>Hey My Baby Girl</h1>
+    <p>
+      Every moment with you makes my world brighter.<br>
+      So I have one very important question to ask…
+    </p>
+
+    <h1>Will you be my Valentine? 💕</h1>
+
+    <div class="buttons">
+      <button class="yes" onclick="yesClicked()">Yes 💖</button>
+      <button class="no" onclick="noClicked()">No 🙈</button>
+    </div>
+
+    <div class="footer">Made with love just for you 💗</div>
+  </div>
+
+  <script>
+    function yesClicked() {
+      document.body.innerHTML = `
+        <div class="celebrate">
+          <div class="message">
+            <h1>YAYYY!!! 💞💞💞</h1>
+            <p>You just made me the happiest person ever 🥰</p>
+            <div class="icons">🌹🍫💖✨</div>
+            <p class="final-line">See you on Valentine’s Day ❤️</p>
+          </div>
+        </div>
+      `;
+
+      const audio = new Audio(
+        "https://assets.mixkit.co/sfx/preview/mixkit-soft-pop-bubble-2692.mp3"
+      );
+      audio.play();
+
+      const symbols = ['💖', '🌸', '✨'];
+      for (let i = 0; i < 40; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti-heart';
+        confetti.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+        confetti.style.left = Math.random() * 100 + 'vw';
+        confetti.style.animationDuration = 3 + Math.random() * 3 + 's';
+        document.body.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 6000);
+      }
+    }
+
+    function noClicked() {
+      const noBtn = document.querySelector('.no');
+      const container = document.querySelector('.buttons');
+
+      const maxX = container.clientWidth - noBtn.offsetWidth;
+      const maxY = container.clientHeight - noBtn.offsetHeight;
+
+      noBtn.style.left = Math.random() * maxX + 'px';
+      noBtn.style.top = Math.random() * maxY + 'px';
+    }
+  </script>
+</body>
+</html>
